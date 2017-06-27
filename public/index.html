@@ -1,0 +1,51 @@
+﻿<html lang="en">
+    <head>
+        <title>Screen Share with audio</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        
+        <!-- ui-stylesheet -->
+        <link href="style.css" rel="stylesheet">
+        <link href="scrol-bars.css" rel="stylesheet">
+        
+        <!-- www.RTCMultiConnection.org/changes-log/ -->
+        <script src="RTCMultiConnection.js"> </script>
+        <!-- <script src="FileBufferReader.js"> </script>
+        <script src="linkify.js"> </script> -->
+    </head>
+    <body>		
+        <div class="main-input-box">
+            <div class="controls">
+                <button id="allow-screen" class="icon" disabled title="Enable Your Screen"></button>
+            </div>
+        </div>
+		
+        <div class="users-container"></div>
+		
+        <div class="main">
+            <div class="new-message" style="overflow: hidden;height: 250px;">
+                <div class="user-info" style="height: 100%">
+                    <img src="images/user.png">
+                </div>
+				
+                <div class="user-activity">
+                        
+                    <h2 class="header">Welcome Sir!</h2>
+                    <p class="message">
+                        Please Enter a <span style="color:red;">UNIQUE</span> room-name: <input type="text" id="room-name" placeholder="Private Room-ID" style="border: 1px solid rgb(253, 253, 253);box-shadow: inset 0 0 0 1px rgb(53, 52, 52);outline: 1px solid rgb(7, 7, 7);" title="Your private rooms unique-id. It is required!"><br />
+                        <small>You can enter email; or any string or numbers!</small> <br />
+                        <small style="color: rgb(1, 170, 143);font-style: italic;font-weight: bold;">You MUST <span style="color:red;">manually</span> share this <span style="color:red;">unique room-name</span> with target users so they can join you!</small> <br /><br />
+                    
+                        Please Enter Your Full Name: <input type="text" id="your-name" placeholder="(optional)" title="Optional but Recommended!"><button id="continue" title="Click to join the room!">continue</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Interface -->
+        <script src="ui.main.js"> </script>
+        <script src="ui.peer-connection.js"> </script>
+    </body>
+</html>

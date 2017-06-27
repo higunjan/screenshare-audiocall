@@ -1,0 +1,6 @@
+{
+	"port":8000,
+	"https":true,
+	"privatekey":"privatekey.pem",
+	"certificate":"certificate.pem"
+}
