@@ -10,7 +10,6 @@ rtcMultiConnection.sdpConstraints.mandatory = {
 var SIGNALING_SERVER = (location.protocol == 'https:' ? 'wss' : 'ws') + '://'+ document.domain +':8000/';
 
 rtcMultiConnection.openSignalingChannel = function(config) {
-    console.log("config ===============", config)
     config.channel = config.channel || this.channel;
     var websocket = new WebSocket(SIGNALING_SERVER);
     websocket.channel = config.channel;
@@ -27,7 +26,6 @@ rtcMultiConnection.openSignalingChannel = function(config) {
     };
     websocket.push = websocket.send;
     websocket.send = function(data) {
-        // console.log("data ===============", data)
         if (websocket.readyState != 1) {
                     return setTimeout(function() {
                         websocket.send(data);
@@ -103,43 +101,11 @@ rtcMultiConnection.onCustomMessage = function(message) {
                         session: message.session
                     });
                 };
-
-                div.querySelector('#share-your-cam').onclick = function() {
-                    this.disabled = true;
-
-                    if (!message.hasScreen) {
-                        session = { audio: true, video: true };
-
-                        rtcMultiConnection.captureUserMedia(function(stream) {
-                            rtcMultiConnection.renegotiatedSessions[JSON.stringify(session)] = {
-                                session: session,
-                                stream: stream
-                            }
-                        
-                            rtcMultiConnection.peers[message.userid].peer.connection.addStream(stream);
-                            div.querySelector('#preview').onclick();
-                        }, session);
-                    }
-
-                    if (message.hasScreen) {
-                        var session = { screen: true };
-
-                        rtcMultiConnection.captureUserMedia(function(stream) {
-                            rtcMultiConnection.renegotiatedSessions[JSON.stringify(session)] = {
-                                session: session,
-                                stream: stream
-                            }
-                            
-                            rtcMultiConnection.peers[message.userid].peer.connection.addStream(stream);
-                            div.querySelector('#preview').onclick();
-                        }, session);
-                    }
-                };
             }
         });
     }
 
-    if (message.hasMic) {
+    /*if (message.hasMic) {
         addNewMessage({
             header: message.extra.username,
             message: message.extra.username + ' enabled microphone. <button id="listen">Listen</button> ---- <button id="share-your-mic">Share Your Mic</button>',
@@ -173,7 +139,7 @@ rtcMultiConnection.onCustomMessage = function(message) {
                 };
             }
         });
-    }
+    }*/
 
     if (message.renegotiate) {
         var customStream = rtcMultiConnection.customStreams[message.streamid];
@@ -185,7 +151,7 @@ rtcMultiConnection.onCustomMessage = function(message) {
 
 
 rtcMultiConnection.blobURLs = { };
-rtcMultiConnection.onstream = function(e) {
+/*rtcMultiConnection.onstream = function(e) {
     if (e.stream.getVideoTracks().length) {
         rtcMultiConnection.blobURLs[e.userid] = e.blobURL;
         addNewMessage({
@@ -202,7 +168,7 @@ rtcMultiConnection.onstream = function(e) {
             color: e.extra.color
         });
     }
-};
+};*/
 
 rtcMultiConnection.sendMessage = function(message) {
     message.userid = rtcMultiConnection.userid;

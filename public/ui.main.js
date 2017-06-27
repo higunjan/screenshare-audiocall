@@ -1,7 +1,3 @@
-// Muaz Khan         - www.MuazKhan.com
-// MIT License       - www.WebRTC-Experiment.com/licence
-// Experiments       - github.com/muaz-khan/WebRTC-Experiment
-
 function getElement(selector) {
     return document.querySelector(selector);
 }
@@ -48,8 +44,6 @@ function addNewMessage(args) {
     if (args.callback) {
         args.callback(newMessageDIV);
     }
-
-    // document.querySelector('#message-sound').play();
 }
 
 main.querySelector('#your-name').onkeyup = function(e) {
@@ -140,101 +134,6 @@ function getUserinfo(blobURL, imageURL) {
 }
 
 var isShiftKeyPressed = false;
-
-/*getElement('.main-input-box textarea').onkeydown = function(e) {
-    if (e.keyCode == 16) {
-        isShiftKeyPressed = true;
-    }
-};
-
-var numberOfKeys = 0;
-getElement('.main-input-box textarea').onkeyup = function(e) {
-    numberOfKeys++;
-    if (numberOfKeys > 3) numberOfKeys = 0;
-
-    if (!numberOfKeys) {
-        if (e.keyCode == 8) {
-            return rtcMultiConnection.send({
-                stoppedTyping: true
-            });
-        }
-
-        rtcMultiConnection.send({
-            typing: true
-        });
-    }
-
-    if (isShiftKeyPressed) {
-        if (e.keyCode == 16) {
-            isShiftKeyPressed = false;
-        }
-        return;
-    }
-
-
-    if (e.keyCode != 13) return;
-
-
-    var websocket = new WebSocket(SIGNALING_SERVER);
-    let chatMessages = linkify(this.value);
-    console.log("rtcMultiConnection : ", rtcMultiConnection, chatMessages)
-
-    websocket.onopen = function() {
-        websocket.send(JSON.stringify({
-            header: rtcMultiConnection.extra.username,
-            message: chatMessages,
-            userinfo: rtcMultiConnection.userid,
-            color: rtcMultiConnection.extra.color
-        }))
-    }
-
-
-
-    addNewMessage({
-        header: rtcMultiConnection.extra.username,
-        message: 'Your Message:<br /><br />' + chatMessages,
-        userinfo: getUserinfo(rtcMultiConnection.blobURLs[rtcMultiConnection.userid], 'images/chat-message.png'),
-        color: rtcMultiConnection.extra.color
-    });
-
-    rtcMultiConnection.send(this.value);
-
-    this.value = '';
-};
-
-getElement('#allow-webcam').onclick = function() {
-    this.disabled = true;
-
-    var session = { audio: true, video: true };
-
-    rtcMultiConnection.captureUserMedia(function(stream) {
-        var streamid = rtcMultiConnection.token();
-        rtcMultiConnection.customStreams[streamid] = stream;
-
-        rtcMultiConnection.sendMessage({
-            hasCamera: true,
-            streamid: streamid,
-            session: session
-        });
-    }, session);
-};
-
-getElement('#allow-mic').onclick = function() {
-    this.disabled = true;
-    var session = { audio: true };
-
-    rtcMultiConnection.captureUserMedia(function(stream) {
-        var streamid = rtcMultiConnection.token();
-        rtcMultiConnection.customStreams[streamid] = stream;
-
-        rtcMultiConnection.sendMessage({
-            hasMic: true,
-            streamid: streamid,
-            session: session
-        });
-    }, session);
-};*/
-
 getElement('#allow-screen').onclick = function() {
     this.disabled = true;
     var session = { screen: true, audio: true };
@@ -250,30 +149,3 @@ getElement('#allow-screen').onclick = function() {
         });
     }, session);
 };
-
-/*getElement('#share-files').onclick = function() {
-    var file = document.createElement('input');
-    file.type = 'file';
-
-    file.onchange = function() {
-        rtcMultiConnection.send(this.files[0]);
-    };
-    fireClickEvent(file);
-};
-
-function fireClickEvent(element) {
-    var evt = new MouseEvent('click', {
-        view: window,
-        bubbles: true,
-        cancelable: true
-    });
-
-    element.dispatchEvent(evt);
-}*/
-
-/*function bytesToSize(bytes) {
-    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    if (bytes == 0) return '0 Bytes';
-    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-}*/
