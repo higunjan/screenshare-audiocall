@@ -42,9 +42,6 @@ rtcMultiConnection.customStreams = { };
 
 rtcMultiConnection.autoTranslateText = false;
 rtcMultiConnection.onopen = function(e) {
-    // getElement('#allow-webcam').disabled = false;
-    // getElement('#allow-mic').disabled = false;
-    // getElement('#share-files').disabled = false;
     getElement('#allow-screen').disabled = false;
 
     addNewMessage({
@@ -54,31 +51,7 @@ rtcMultiConnection.onopen = function(e) {
         color: e.extra.color
     });
 
-    // numbersOfUsers.innerHTML = parseInt(numbersOfUsers.innerHTML) + 1;
 };
-
-/*var whoIsTyping = document.querySelector('#who-is-typing');
-rtcMultiConnection.onmessage = function(e) {
-    if (e.data.typing) {
-        whoIsTyping.innerHTML = e.extra.username + ' is typing ...';
-        return;
-    }
-
-    if (e.data.stoppedTyping) {
-        whoIsTyping.innerHTML = '';
-        return;
-    }
-
-    whoIsTyping.innerHTML = '';
-
-    addNewMessage({
-        header: e.extra.username,
-        message: 'Text message from ' + e.extra.username + ':<br /><br />' + (rtcMultiConnection.autoTranslateText ? linkify(e.data) + ' ( ' + linkify(e.original) + ' )' : linkify(e.data)),
-        userinfo: getUserinfo(rtcMultiConnection.blobURLs[e.userid], 'images/chat-message.png'),
-        color: e.extra.color
-    });
-    document.title = e.data;
-};*/
 
 var sessions = { };
 rtcMultiConnection.onNewSession = function(session) {
@@ -127,38 +100,6 @@ rtcMultiConnection.onCustomMessage = function(message) {
                         session: message.session
                     });
                 };
-
-                /*div.querySelector('#share-your-cam').onclick = function() {
-                    this.disabled = true;
-
-                    if (!message.hasScreen) {
-                        session = { audio: true, video: true };
-
-                        rtcMultiConnection.captureUserMedia(function(stream) {
-                            rtcMultiConnection.renegotiatedSessions[JSON.stringify(session)] = {
-                                session: session,
-                                stream: stream
-                            }
-                        
-                            rtcMultiConnection.peers[message.userid].peer.connection.addStream(stream);
-                            div.querySelector('#preview').onclick();
-                        }, session);
-                    }
-
-                    if (message.hasScreen) {
-                        var session = { screen: true };
-
-                        rtcMultiConnection.captureUserMedia(function(stream) {
-                            rtcMultiConnection.renegotiatedSessions[JSON.stringify(session)] = {
-                                session: session,
-                                stream: stream
-                            }
-                            
-                            rtcMultiConnection.peers[message.userid].peer.connection.addStream(stream);
-                            div.querySelector('#preview').onclick();
-                        }, session);
-                    }
-                };*/
             }
         });
     }
