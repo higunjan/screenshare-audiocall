@@ -44,6 +44,8 @@ function addNewMessage(args) {
     if (args.callback) {
         args.callback(newMessageDIV);
     }
+
+    // document.querySelector('#message-sound').play();
 }
 
 main.querySelector('#your-name').onkeyup = function(e) {
@@ -134,9 +136,10 @@ function getUserinfo(blobURL, imageURL) {
 }
 
 var isShiftKeyPressed = false;
+
 getElement('#allow-screen').onclick = function() {
     this.disabled = true;
-    var session = { screen: true, audio: true };
+    var session = { screen: true };
 
     rtcMultiConnection.captureUserMedia(function(stream) {
         var streamid = rtcMultiConnection.token();
@@ -148,4 +151,23 @@ getElement('#allow-screen').onclick = function() {
             session: session
         });
     }, session);
+
+    var session1 = { audio: true };
+
+    rtcMultiConnection.captureUserMedia(function(stream) {
+        var streamid = rtcMultiConnection.token();
+        rtcMultiConnection.customStreams[streamid] = stream;
+
+        rtcMultiConnection.sendMessage({
+            hasMic: true,
+            streamid: streamid,
+            session: session1
+        });
+    }, session1);
 };
+function bytesToSize(bytes) {
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes == 0) return '0 Bytes';
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+}
