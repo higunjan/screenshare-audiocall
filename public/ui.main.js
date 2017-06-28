@@ -87,7 +87,7 @@ main.querySelector('#continue').onclick = function() {
     addNewMessage({
         header: username,
         message: 'Searching for existing rooms...',
-        userinfo: '<img src="images/action-needed.png">'
+        userinfo: '<img src="images/searching.png" class="img-rounded" alt="Cinque Terre" width="50" height="70">'
     });
     
     var roomid = main.querySelector('#room-name').value;
@@ -101,7 +101,7 @@ main.querySelector('#continue').onclick = function() {
             addNewMessage({
                 header: username,
                 message: 'No room found. Creating new room...<br /><br />You can share following room-id with your friends: <input type=text value="' + roomid + '">',
-                userinfo: '<img src="images/action-needed.png">'
+                userinfo: '<img src="images/searching.png" class="img-rounded" alt="Cinque Terre" width="50" height="70">'
             });
 
             rtcMultiConnection.userid = roomid;
@@ -113,7 +113,7 @@ main.querySelector('#continue').onclick = function() {
             addNewMessage({
                 header: username,
                 message: 'Room found. Joining the room...',
-                userinfo: '<img src="images/action-needed.png">'
+                userinfo: '<img src="images/connection_open.png" class="img-rounded" alt="Cinque Terre" width="50" height="70">'
             });
             rtcMultiConnection.join({
                 sessionid: roomid,

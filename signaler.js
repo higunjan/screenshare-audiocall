@@ -1,20 +1,41 @@
-var config = require("./config/config.json"),
-    fs = require('fs'),
-    express = require('express'),
-    app = express(),
-    httpForServerCreate = config.https ? require('https') : require('http');
+var port = process.env.PORT || 3000; // change it to 443
 
-console.log(config);
+var fs = require('fs');
+//var _static = require('node-static');
+//var file = new _static.Server('./public');
+
+/* for HTTP-only
+var http = require('http').createServer(function (request, response) {
+    request.addListener('end', function () {
+        if (request.url.search(/.png|.gif|.js|.css/g) == -1) {
+            file.serveFile('/index.html', 402, {}, request, response);
+        } else file.serve(request, response);
+    }).resume();
+}).listen(port);
+*/
+
 
 var options = {
-    key: fs.readFileSync(config.privatekey),
-    cert: fs.readFileSync(config.certificate)
+    key: fs.readFileSync('privatekey.pem'),
+    cert: fs.readFileSync('certificate.pem')
 };
 
-var secureServer = config.https ? httpForServerCreate.createServer(options, app) : httpForServerCreate.createServer(app);
+var express = require('express');
+var app = express();
 
-secureServer.listen(config.port, function () {
-    console.log('listening both websocket and HTTPs at port ',config.port);
+// var https = require('https').createServer(options, function (request, response) {
+//     request.addListener('end', function () {
+//         if (request.url.search(/.png|.gif|.js|.css/g) == -1) {
+//             file.serveFile('/index.html', 402, {}, request, response);
+//         } else file.serve(request, response);
+//     }).resume();
+// }).listen(port);
+
+var https = require('https');
+var secureServer = https.createServer(options, app);
+
+secureServer.listen(port, function () {
+    console.log('listening both websocket and HTTPs at port ',port);
 })
 
 app.use(express.static(__dirname + '/public'));
@@ -42,6 +63,7 @@ function onRequest(socket) {
 
     var websocket = socket.accept(null, origin);
     websocket.on('message', function (message) {
+        console.log("websocket.on('message') >>>>>> ", message)
         if (message.type === 'utf8') {
             onMessage(JSON.parse(message.utf8Data), websocket);
         }
@@ -115,3 +137,4 @@ function truncateChannels(websocket) {
             delete CHANNELS[channel];
     }
 }
+

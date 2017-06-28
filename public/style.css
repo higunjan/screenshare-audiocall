@@ -58,7 +58,7 @@ body {
     text-align: center;
 }
 
-.user-info img, .user-info video {
+.user-info video {
     width: 100%;
     height: 134px;
 }
@@ -75,36 +75,8 @@ body {
 .header {
 }
 
-.message {
-    padding: .6em .8em;
-    word-wrap: break-word;
-}
-
-.message img, .message iframe {
-    width: 64%;
-    border: 2px solid black;
-    border-radius: 5px;
-}
-
 .main-input-box {
-    border: 1px solid black;
-    border-bottom: 0;
-    padding-bottom: 1px;
     text-align: right;
-    margin-left: 193px;
-    margin-right: 125px;
-    padding-right: 21px;
-}
-
-.main-input-box textarea {
-    border: 0;
-    width: 100%;
-    resize: none;
-    padding: .4em .8em;
-    font-size: inherit;
-    font-family: inherit;
-    padding-right: 177px;
-    background: transparent;
 }
 
 button, .users-list
@@ -152,21 +124,11 @@ button[disabled], input[type=button][disabled] {
 
 #allow-screen {
     background-image: url('images/screen.png');
+    background-size: contain;
 }
 
 #share-files {
     background-image: url('images/share-files.png');
-}
-
-#continue {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    background-repeat: no-repeat;
-    background-position: center right;
-    background-image: url('images/action-needed.png');
-    padding-right: 47px;
-	padding-top: 1px;
-	padding-bottom: 4px;
 }
 
 a {
