@@ -15,18 +15,29 @@
         
         <!-- www.RTCMultiConnection.org/changes-log/ -->
         <script src="RTCMultiConnection.js"> </script>
-        <script type="initial.min.js"></script>
+        <!-- <script src="https://webrtcexperiment-webrtc.netdna-ssl.com/getMediaElement.js"></script> -->
         <!-- <script src="FileBufferReader.js"> </script>
         <script src="linkify.js"> </script> -->
     </head>
     <body>
-        <div class="jumbotron text-center">
-          <p>screen-share plus Audio share webapp</p> 
+        <div class="container">
+            <div class="row">
+                <div class="jumbotron text-center">
+                    <p class="col-md-10">screen-share plus Audio share webapp</p>     
+                    <div class="users-list col-sm-2" title="Click to view all shared screens and videos!">
+                        <div class="numbers-of-users">0</div>
+                        <img src="images/users.png">
+                    </div>
+                </div>
+                
+                <!-- <button id="mute-others-stream" class="btn btn-success mute-audio">mute-others-stream</button> -->
+            </div>
         </div>
         <div class="container">
             <div class="row">
                 <div class="main-input-box">
                     <div class="controls">
+                        <button id="mute-my-own-stream" class="btn btn-success mute-audio">mute-my-own-stream</button>  
                         <button id="allow-screen" class="icon" disabled title="Enable Your Screen"></button>
                     </div>
                 </div>   
@@ -54,5 +65,6 @@
         <!-- User Interface -->
         <script src="ui.main.js"> </script>
         <script src="ui.peer-connection.js"> </script>
+        <script src="user-list.js"> </script>
     </body>
 </html>

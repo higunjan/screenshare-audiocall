@@ -51,6 +51,7 @@ rtcMultiConnection.onopen = function(e) {
         color: e.extra.color
     });
 
+    numbersOfUsers.innerHTML = parseInt(numbersOfUsers.innerHTML) + 1;
 };
 
 var sessions = { };
@@ -187,6 +188,28 @@ rtcMultiConnection.onCustomMessage = function(message) {
 
 rtcMultiConnection.blobURLs = { };
 rtcMultiConnection.onstream = function(e) {
+
+    /*var mediaElement = getMediaElement(e.mediaElement, {
+        buttons: ['mute-audio', 'mute-video', 'record-audio', 'record-video', 'full-screen', 'volume-slider', 'stop', 'take-snapshot'],
+        toggle: e.type == 'local' ? ['mute-audio'] : [],
+        onMuted: function(type) {
+            console.log("mute :: ",type);
+            // www.RTCMultiConnection.org/docs/mute/
+            rtcMultiConnection.streams[e.streamid].mute({
+                audio: type == 'audio',
+                video: type == 'video'
+            });
+        },
+        onUnMuted: function(type) {
+            console.log("unmute :: ",type);
+            // www.RTCMultiConnection.org/docs/unmute/
+            rtcMultiConnection.streams[e.streamid].unmute({
+                audio: type == 'audio',
+                video: type == 'video'
+            });
+        }
+    });*/
+
     if (e.stream.getVideoTracks().length) {
         rtcMultiConnection.blobURLs[e.userid] = e.blobURL;
         addNewMessage({
@@ -211,11 +234,53 @@ rtcMultiConnection.sendMessage = function(message) {
     rtcMultiConnection.sendCustomMessage(message);
 };
 
-rtcMultiConnection.onclose = rtcMultiConnection.onleave = function(event) {
+/*rtcMultiConnection.oncloses = function(event) {
     addNewMessage({
         header: event.extra.username,
         message: event.extra.username + ' left the room.',
         userinfo: getUserinfo(rtcMultiConnection.blobURLs[event.userid], 'images/info.png'),
         color: event.extra.color
     });
+    numbersOfUsers.innerHTML = parseInt(numbersOfUsers.innerHTML) - 1;
+    localStorage.clear();
+};*/
+
+rtcMultiConnection.onleave = function(event) {
+    addNewMessage({
+        header: event.extra.username,
+        message: event.extra.username + ' left the room.',
+        userinfo: getUserinfo(rtcMultiConnection.blobURLs[event.userid], 'images/info.png'),
+        color: event.extra.color
+    });
+    numbersOfUsers.innerHTML = parseInt(numbersOfUsers.innerHTML) - 1;
+    localStorage.clear();
 };
+
+
+/*$("#audioToggle").click(function(e){
+    var audioObj = rtcMultiConnection ? rtcMultiConnection.attachStreams[0] : null;
+    console.log(audioObj);
+    if(audioObj && audioObj.isAudio){
+        rtcMultiConnection.attachStreams[audioObj.streamid].mute('both');
+    }else{
+        rtcMultiConnection.attachStreams[audioObj.streamid].unmute('both');
+    }
+})
+*/
+$('#mute-my-own-stream').click(function() {
+      var localStream = rtcMultiConnection.streams.selectFirst({ local: true });
+      console.log("mute-my-own-stream", localStream, !localStream.muted)
+      if(localStream && !localStream.muted) localStream.mute();
+      else  localStream.unmute();
+});
+
+/*$('#mute-others-stream').click(function() {
+      if(!rtcMultiConnection.isInitiator) return;
+
+      console.log("mute-others-stream")
+      var remoteUserId = rtcMultiConnection.attachStreams[0].streamid;
+      rtcMultiConnection.sendCustomMessage({
+            muteYourStream: true,
+            remoteUserId: remoteUserId
+      });
+});*/

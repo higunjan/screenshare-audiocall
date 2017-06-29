@@ -79,7 +79,7 @@ body {
     text-align: right;
 }
 
-button, .users-list
+button
 {
 	padding: 5px 10px;
 	cursor: pointer;
@@ -91,11 +91,16 @@ button, .users-list
 	border-radius: 2px;
 	background-color: rgba(204, 60, 25, 0.63);
 }
-button:hover, .users-list:hover
+.users-list{
+    font-size: 20px;
+    background-color: rgba(51, 122, 181, 0.64);
+    border-radius: 25px;
+}
+button:hover
 {
 	 background-color: rgba(204, 60, 25, 0.83);
 }
-button:active, .users-list:active
+button:active
 {
      background-color: rgba(204, 60, 25, 0.9);
 }
@@ -177,18 +182,6 @@ h1 img {
     height: 60px;
 }
 
-.users-list {
-    position: absolute;
-    right: 63px;
-    padding: 0;
-    color: white;
-    margin-top: 0px;
-    width: 118px;
-    height: 110px;
-    cursor: default;
-    border-radius: 0;
-    border-top-right-radius: 20px;
-}
 
 .users-list.selected {
     background-color: black;
