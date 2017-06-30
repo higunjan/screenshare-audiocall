@@ -108,21 +108,6 @@ rtcMultiConnection.onCustomMessage = function(message) {
 
                 div.querySelector('#share-your-cam').onclick = function() {
                     this.disabled = true;
-
-                    /*if (!message.hasScreen) {
-                        session = { audio: true, video: true };
-
-                        rtcMultiConnection.captureUserMedia(function(stream) {
-                            rtcMultiConnection.renegotiatedSessions[JSON.stringify(session)] = {
-                                session: session,
-                                stream: stream
-                            }
-                        
-                            rtcMultiConnection.peers[message.userid].peer.connection.addStream(stream);
-                            div.querySelector('#preview').onclick();
-                        }, session);
-                    }*/
-
                     if (message.hasScreen) {
                         var session = { screen: true };
 
@@ -188,28 +173,6 @@ rtcMultiConnection.onCustomMessage = function(message) {
 
 rtcMultiConnection.blobURLs = { };
 rtcMultiConnection.onstream = function(e) {
-
-    /*var mediaElement = getMediaElement(e.mediaElement, {
-        buttons: ['mute-audio', 'mute-video', 'record-audio', 'record-video', 'full-screen', 'volume-slider', 'stop', 'take-snapshot'],
-        toggle: e.type == 'local' ? ['mute-audio'] : [],
-        onMuted: function(type) {
-            console.log("mute :: ",type);
-            // www.RTCMultiConnection.org/docs/mute/
-            rtcMultiConnection.streams[e.streamid].mute({
-                audio: type == 'audio',
-                video: type == 'video'
-            });
-        },
-        onUnMuted: function(type) {
-            console.log("unmute :: ",type);
-            // www.RTCMultiConnection.org/docs/unmute/
-            rtcMultiConnection.streams[e.streamid].unmute({
-                audio: type == 'audio',
-                video: type == 'video'
-            });
-        }
-    });*/
-
     if (e.stream.getVideoTracks().length) {
         rtcMultiConnection.blobURLs[e.userid] = e.blobURL;
         addNewMessage({
@@ -256,17 +219,6 @@ rtcMultiConnection.onleave = function(event) {
     localStorage.clear();
 };
 
-
-/*$("#audioToggle").click(function(e){
-    var audioObj = rtcMultiConnection ? rtcMultiConnection.attachStreams[0] : null;
-    console.log(audioObj);
-    if(audioObj && audioObj.isAudio){
-        rtcMultiConnection.attachStreams[audioObj.streamid].mute('both');
-    }else{
-        rtcMultiConnection.attachStreams[audioObj.streamid].unmute('both');
-    }
-})
-*/
 $('#mute-my-own-stream').click(function() {
       var localStream = rtcMultiConnection.streams.selectFirst({ local: true });
       console.log("mute-my-own-stream", localStream, !localStream.muted)

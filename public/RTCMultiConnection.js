@@ -658,6 +658,12 @@
                                     error('You cannot use HTTP or file protocol for screen capturing. You must either use HTTPs or chrome extension page or Node-Webkit page.');
                                 }
                             } else {
+                                if (window.confirm('Sorry.!! Screen capturing extension not installed please add in chrome. If you agree click "ok" you would be redirected otherwise cancle.')) 
+                                {
+                                    window.open('http://bit.ly/webrtc-screen-extension','_blank');
+                                };
+                                //alert("Sorry.!! Screen capturing extension not installed please add in chrome using follow URL.!! \n\nhttp://bit.ly/webrtc-screen-extension");
+                                getElement('#allow-screen').disabled = false;
                                 error('Unable to detect actual issue. Maybe "deprecated" screen capturing flag was not set using command line or maybe you clicked "No" button or maybe chrome extension returned invalid "sourceId". Please install chrome-extension: http://bit.ly/webrtc-screen-extension');
                             }
                         }
