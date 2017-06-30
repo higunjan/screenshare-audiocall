@@ -222,8 +222,14 @@ rtcMultiConnection.onleave = function(event) {
 $('#mute-my-own-stream').click(function() {
       var localStream = rtcMultiConnection.streams.selectFirst({ local: true });
       console.log("mute-my-own-stream", localStream, !localStream.muted)
-      if(localStream && !localStream.muted) localStream.mute();
-      else  localStream.unmute();
+      if(localStream && !localStream.muted){
+        $("#mute-my-own-stream").text("unmute");
+        localStream.mute();
+      }
+      else{
+        $("#mute-my-own-stream").text("mute");
+        localStream.unmute();
+      }  
 });
 
 /*$('#mute-others-stream').click(function() {
